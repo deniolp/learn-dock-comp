@@ -1,16 +1,31 @@
 version: '3.9'
 
 services:
-  php-apache:
-    container_name: "php-apache"
-    # image: "php:8.2.0-apache"
-    build:
-      context: ./src
-      dockerfile: Dockerfile
+  # php-apache:
+  #   container_name: "php-apache"
+  #   # image: "php:8.2.0-apache"
+  #   build:
+  #     context: ./src
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./src:/var/www/html/
+  #   ports:
+  #     - 8000:80
+  #   depends_on:
+  #     - db
+
+  wordpress:
+    image: wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: MyDatabase
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: User_Pass
     volumes:
-      - ./src:/var/www/html/
+      - wordpress:/var/www/html
     ports:
-      - 8000:80
+      - 8080:80
     depends_on:
       - db
 
@@ -33,7 +48,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - 8080:80
+      - 8081:80
     environment:
       PMA_HOST: db
     depends_on:
@@ -41,3 +56,4 @@ services:
 
 volumes:
     db:
+    wordpress:
