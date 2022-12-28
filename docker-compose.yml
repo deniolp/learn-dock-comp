@@ -23,6 +23,8 @@ services:
       MYSQL_DATABASE: MyDatabase
       MYSQL_USER: user
       MYSQL_PASSWORD: User_Pass
+    volumes:
+      - db:/var/lib/mysql
     ports:
       - 9906:3306
     
@@ -36,3 +38,6 @@ services:
       PMA_HOST: db
     depends_on:
       - db
+
+volumes:
+    db:
