@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  php-apache:
+    container_name: "php-apache"
+    image: "php:8.2.0-apache"
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - 8080:80
